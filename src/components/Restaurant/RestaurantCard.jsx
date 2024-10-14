@@ -1,41 +1,39 @@
 import styles from "./RestaurantCard.module.css";
 
 const RestaurantCard = (props) => {
-  // console.log(props)
   return (
-    <div className={styles.container}>
-      <div>
-        <h3 className={styles.title}>{props.name}</h3>
-        <span>
-          {[...new Array(5)].map((item, index) => {
-            return (
-              <i
-                key={"start_icon_" + index}
-                className={`fa-${
-                  parseInt(props.rating) >= index + 1 ? "solid" : "regular"
-                } fa-star`}
-              ></i>
-            );
-          })}
-        </span>
-      </div>
-      <i className="fa-solid fa-location-dot"></i>
-      <span className={styles.address}>{props.address}</span>
-      <div>
-        {
-          `${props.outcode} ${props.postcode}`
-          // props.outcode
-        }
-        {
-          // props.postcode
-        }
-      </div>
-      <div className={styles["cuisine-container"]}>
-        <div>
-          <i className="fa-solid fa-utensils"></i>
-          <span className={styles.cuisine}>{props.type_of_food}</span>
+    <div className={styles.card}>
+      <div className={styles.cardHeader}>
+        <h3 className={styles.cardTitle}>{props.name}</h3>
+        <div className={styles.rating}>
+          {[...new Array(5)].map((_, index) => (
+            <i
+              key={"start_icon_" + index}
+              className={`fa-${
+                parseInt(props.rating) >= index + 1 ? "solid" : "regular"
+              } fa-star`}
+            ></i>
+          ))}
         </div>
-        <a href="/menu">Visit Menu</a>
+      </div>
+      <div className={styles.cardBody}>
+        <div className={styles.location}>
+          <div>
+            <i className="fa-solid fa-location-dot"></i>
+            <span>{props.address}</span>
+          </div>
+
+          <div className={styles.postcode}>
+            {`${props.outcode} ${props.postcode}`}
+          </div>
+        </div>
+        <div className={styles.foodType}>
+          <i className="fa-solid fa-utensils"></i>
+          <span>{props.type_of_food}</span>
+        </div>
+        <a href="/menu" className={styles.menuLink}>
+          Visit Menu
+        </a>
       </div>
     </div>
   );

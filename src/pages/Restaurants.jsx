@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RestaurantCard from "../components/Restaurant/RestaurantCard";
 // import styles from "./Restaurants.module.css";
+import "../App.css";
 
 const restaurantList = [
   {
@@ -367,64 +368,66 @@ const restaurantList = [
     type_of_food: "Pizza",
   },
 ];
-
 const Restaurants = () => {
-  const [searchKey, setSearchKey] = useState("");
-  const [rating, setRating] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [ratingFilter, setRatingFilter] = useState(0);
 
-  const onSearchBoxChange = (e) => {
-    // console.log(e.target.value)
-    setSearchKey(e.target.value);
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
-  const onRatingBoxChange = (e) => {
-    setRating(e.target.value);
+  const handleRatingChange = (e) => {
+    setRatingFilter(Number(e.target.value));
   };
 
-  const onRestaurantFilter = (restaurantData) => {
-    if (
-      (restaurantData.name
-        .toLowerCase()
-        .includes(searchKey.toLowerCase().trim()) ||
-        restaurantData.address
-          .toLowerCase()
-          .includes(searchKey.toLocaleLowerCase().trim()) ||
-        restaurantData["address line 2"]
-          .toLowerCase()
-          .includes(searchKey.toLocaleLowerCase().trim())) &&
-      Number(restaurantData.rating) >= Number(rating)
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  const filteredRestaurants = restaurantList.filter((restaurant) => {
+    return (
+      restaurant.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      restaurant.rating >= ratingFilter
+    );
+  });
 
   return (
-    <>
-      <div className="">
+    <div className="py-4 px-10 max-w-6xl mt-10 mx-auto">
+      <div className="mb-10 flex flex-col sm:flex-row gap-4">
         <input
-          onChange={onSearchBoxChange}
           type="text"
           placeholder="Search restaurants..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="border p-2 flex-grow rounded-md"
         />
-        <div>
-          Minimum Rating
-          <input onChange={onRatingBoxChange} type="number" />
-        </div>
+        <select
+          value={ratingFilter}
+          onChange={handleRatingChange}
+          className="border p-2 rounded-md"
+        >
+          <option value={0}>All Ratings</option>
+          <option value={1}>1+</option>
+          <option value={2}>2+</option>
+          <option value={3}>3+</option>
+          <option value={4}>4+</option>
+          <option value={5}>5+</option>
+        </select>
       </div>
-      <div className="">
-        {restaurantList
-          .filter(onRestaurantFilter)
-          .map((restaurantData, index) => {
-            // console.log(restaurantData)
-            // return <RestaurantCard data={restaurantData} />
-            return (
-              <RestaurantCard key={restaurantData._id} {...restaurantData} />
-            );
-          })}
+      <div className="card-container">
+        {filteredRestaurants.length > 0 ? (
+          filteredRestaurants.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant.id}
+              name={restaurant.name}
+              address={restaurant.address}
+              rating={restaurant.rating}
+              type_of_food={restaurant.type_of_food}
+            />
+          ))
+        ) : (
+          <p className="text-center text-gray-500">
+            No restaurants found matching your criteria.
+          </p>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

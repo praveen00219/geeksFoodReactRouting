@@ -1,23 +1,106 @@
-.container {
-  box-shadow: 3px 3px 3px grey;
-  border-radius: 10px;
-  padding: 20px;
+/* RestaurantCard.module.css */
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
 }
 
-.title {
-  display: inline-block;
-  margin-right: 10px;
+.card:hover {
+  transform: translateY(-5px);
 }
 
-.address {
-  margin: 5px;
+.cardHeader {
+  display: flex;
+  /* justify-content: space-between; */
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
-.cuisine-container {
-  background: #e7dfdf;
-  padding: 10px;
+.cardTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333333;
 }
 
-.cuisine {
-  padding: 5px;
+.rating i {
+  color: #ff9800;
+  margin-right: 4px;
+}
+
+.cardBody {
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.location i {
+  color: #ff5722;
+  margin-right: 8px;
+}
+
+/* .postcode {
+  font-size: 0.85rem;
+  color: #888888;
+  margin-bottom: 1rem;
+} */
+
+.foodType {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.foodType i {
+  color: #4caf50;
+  margin-right: 8px;
+}
+
+.menuLink {
+  color: #007bff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.menuLink:hover {
+  color: #0056b3;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .card {
+    padding: 1rem;
+  }
+  .cardTitle {
+    font-size: 1.2rem;
+  }
+  .rating i {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 0.8rem;
+  }
+  .cardTitle {
+    font-size: 1rem;
+  }
+  .rating i {
+    font-size: 0.8rem;
+  }
 }
